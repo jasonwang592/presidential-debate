@@ -37,20 +37,25 @@ def word_counter(dataFrame):
 def sentiment_analysis(word_dict, total_words):
 	positive_counter = 0
 	negative_counter = 0
-	# with open('positive-words.txt') as f:
-	# 	for line in f:
-	# 		word = str(line).rstrip()
-	# 		if word in word_dict.keys():
-	# 			print('hi')
-	# 			positive_counter += word_dict[word]
-	# with codecs.open('negative-words.txt', encoding='utf-8') as f:
-	# 	for line in f:
-	# 		print(line)
-	# 		if line in word_dict.keys():
-	# 			print('ho')
-	# 			negative_counter += word_dict[line]
-	return positive_counter / total_words
+	p_word_list = {}
+	n_word_list = {}
+	with open('positive-words.txt') as f:
+		for line in f:
+			word = str(line).rstrip()
+			if word in word_dict.keys():
+				positive_counter += word_dict[word]
+				p_word_list[word] = word_dict[word]
+	with codecs.open('negative-words.txt','r',encoding='utf8') as g:
+		for line in g:
+			word = str(line).rstrip()
+			if word in word_dict.keys():
+				negative_counter += word_dict[word]
+				n_word_list[word] = word_dict[word]
 
+	positive_rate = (positive_counter / total_words) * 100
+	negative_rate = (negative_counter / total_words) * 100
+
+	return positive_rate, negative_rate, p_word_list, n_word_list
 
 
 clinton_df = pickle.load(open('clinton.pickle', 'rb'))
@@ -62,17 +67,24 @@ trump_words = word_counter(trump_df)
 
 clinton_total_words = sum(clinton_words.values())
 trump_total_words = sum(trump_words.values())
-hillary_positive_rate = sentiment_analysis(clinton_words, clinton_total_words)
-trump_positive_rate = sentiment_analysis(trump_words, trump_total_words)
-print(hillary_positive_rate, trump_positive_rate)
-print(clinton_total_words, trump_total_words)
+h_pos, h_neg, h_pos_words, h_neg_words = sentiment_analysis(clinton_words, clinton_total_words)
+t_pos, t_neg, t_pos_words, t_neg_words = sentiment_analysis(trump_words, trump_total_words)
+
+print("Out of %s words and %s Hillary and Trump spoke, respectively:" % (clinton_total_words, trump_total_words))
+print("Hillary's positive word rate: %0.2f" % h_pos + "%")
+print("Hillary's negative word rate: %0.2f" % h_neg + "%")
+print("Trump's positive word rate: %0.2f" % t_pos + "%")
+print("Trump's negative word rate: %0.2f" % t_neg + "%")
+print("Hillary spoke %s unique words while Trump spoke %s" % (len(clinton_words), len(trump_words)))
+
+print(sorted(t_neg_words.items(), key = lambda x: x[1], reverse = True))
+print(sorted(h_neg_words.items(), key = lambda x: x[1], reverse = True))
 
 clinton_tuples = sorted(clinton_words.items(), key = lambda x: x[1], reverse = True)
 trump_tuples = sorted(trump_words.items(), key = lambda x: x[1], reverse = True)
 
-print(clinton_tuples[:50])
-print(trump_tuples[:50])
-print(len(clinton_words), len(trump_words))
+# print(clinton_tuples[:50])
+# print(trump_tuples[:50])
 # words = list(zip(*clinton_tuples))[0]
 # freq = list(zip(*clinton_tuples))[1]
 # x_pos = np.arange(len(words))
