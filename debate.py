@@ -6,7 +6,7 @@ import codecs
 
 
 def read_and_clean():
-	'''reads the debate csv and removes all Audience related text'''
+	'''reads the debate csv and removes all Audience and non-candidate related text'''
 	df = pd.read_csv('primary_debates_cleaned.csv')
 	df.drop(['Line','URL'], axis = 1, inplace = True)
 	print(df.columns)
@@ -35,6 +35,10 @@ def word_counter(dataFrame):
 	return counter
 
 def sentiment_analysis(word_dict, total_words):
+	'''given a dictionary of words, their freqencies and total words count,
+	calculates the percentage of words that are positive or negative as defined
+	by the lists from Twitter sentiment analysis. Also returns a dictionaries of
+	the positive words and negative words and their respective counts'''
 	positive_counter = 0
 	negative_counter = 0
 	p_word_list = {}

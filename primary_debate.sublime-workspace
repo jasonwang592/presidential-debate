@@ -1,0 +1,585 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"word",
+				"word_dict"
+			],
+			[
+				"clin",
+				"clinton_words"
+			],
+			[
+				"clint",
+				"clinton_tuples"
+			],
+			[
+				"clinto",
+				"clinton_dict"
+			],
+			[
+				"clinton",
+				"clinton_wordlist"
+			],
+			[
+				"read_",
+				"read_and_clean"
+			],
+			[
+				"rate",
+				"rate_df"
+			],
+			[
+				"strip",
+				"strip_string"
+			],
+			[
+				"str",
+				"strip_string"
+			],
+			[
+				"coln",
+				"columns"
+			],
+			[
+				"abs",
+				"abs_df"
+			],
+			[
+				"spl",
+				"split_data"
+			],
+			[
+				"picl",
+				"pickle_in"
+			],
+			[
+				"pci",
+				"pickle_in"
+			],
+			[
+				"i",
+				"import"
+			],
+			[
+				"pick",
+				"pickle_out"
+			],
+			[
+				"curr",
+				"curr_count"
+			],
+			[
+				"lon",
+				"longest_palindrome"
+			],
+			[
+				"l",
+				"l_ind\tstatement"
+			],
+			[
+				"hpi_",
+				"HPI_State_Correlation\tstatement"
+			],
+			[
+				"subo",
+				"subplot2grid\tfunction"
+			],
+			[
+				"HPI",
+				"HPI_data"
+			],
+			[
+				"Hpi",
+				"HPI_data"
+			],
+			[
+				"hpi",
+				"HPI_data\tstatement"
+			],
+			[
+				"pic",
+				"pickle_in\tstatement"
+			],
+			[
+				"get",
+				"get_states\tfunction"
+			],
+			[
+				"rand",
+				"random"
+			],
+			[
+				"dup",
+				"duplicate_count"
+			],
+			[
+				"duoc",
+				"dupCount"
+			],
+			[
+				"if",
+				"ifmain\tif __name__ == '__main__'"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "debate.py",
+			"settings":
+			{
+				"buffer_size": 2288,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "diff --git a/debate.py b/debate.py\nindex 29dfd2f..5b7e0a4 100644\n--- a/debate.py\n+++ b/debate.py\n@@ -2,7 +2,6 @@ import pandas as pd\n import pickle\n import matplotlib.pyplot as plt\n import string\n-import numpy as np\n \n \n def read_and_clean():\n@@ -19,6 +18,7 @@ def read_and_clean():\n \treturn clinton_df, trump_df\n \n def word_counter(dataFrame):\n+\t#return dictionaries of the candidates words and their respective counts\n \tword_list = list(dataFrame['Text'])\n \n \tcounter = {}\n@@ -33,11 +33,16 @@ def word_counter(dataFrame):\n \t\t\t\tcounter[word] = 1\n \treturn counter\n \n+def sentiment_analysis(df):\n+\twith open('positive-words.txt') as f:\n+\t\tfor line in f:\n+\t\t\tpass\n \n clinton_df = pickle.load(open('clinton.pickle', 'rb'))\n trump_df = pickle.load(open('trump.pickle', 'rb'))\n \n-#return dictionaries of the candidates words and their respective counts\n+sentiment_analysis(clinton_df)\n+\n #calling len(dict) shows us the size of one candidate's vocabulary to another's\n clinton_words = word_counter(clinton_df)\n trump_words = word_counter(trump_df)\n",
+			"settings":
+			{
+				"buffer_size": 1043,
+				"line_ending": "Unix",
+				"name": "Git Diff",
+				"read_only": true,
+				"scratch": true
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "git ",
+		"selected_items":
+		[
+			[
+				"git ",
+				"Git: Diff Current File"
+			],
+			[
+				"change",
+				"Git: Change Branch"
+			],
+			[
+				"git",
+				"Git: Commit history"
+			],
+			[
+				"new",
+				"Git: New Branch"
+			],
+			[
+				"commit",
+				"Git: Commit"
+			],
+			[
+				"add",
+				"Git: Add Current File"
+			],
+			[
+				"delete",
+				"Git: Delete Branch"
+			],
+			[
+				"merge",
+				"Git: Merge Branch"
+			],
+			[
+				"pull",
+				"Git: Pull Current Branch"
+			],
+			[
+				"mer",
+				"Git: Merge Branch"
+			],
+			[
+				"bran",
+				"Git: Change Branch"
+			],
+			[
+				"branc",
+				"Git: Change Branch"
+			],
+			[
+				"git co",
+				"Git: Commit"
+			],
+			[
+				"gs",
+				"Git: Status"
+			],
+			[
+				"git add",
+				"Git: Add Current File"
+			],
+			[
+				"linting",
+				"Anaconda: Disable linting on this file"
+			],
+			[
+				"git brn",
+				"Git: New Branch"
+			],
+			[
+				"Snippet: ",
+				"Snippet: For Loop"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"git stat",
+				"Git: Status"
+			],
+			[
+				"git ad",
+				"Git: Add Current File"
+			],
+			[
+				"gitdiff",
+				"Git: Diff Current File"
+			],
+			[
+				"git change",
+				"Git: Change Branch"
+			],
+			[
+				"git dle",
+				"Git: Delete Branch"
+			],
+			[
+				"git cha",
+				"Git: Change Branch"
+			],
+			[
+				"git del",
+				"Git: Delete Branch"
+			],
+			[
+				"git chan",
+				"Git: Change Branch"
+			],
+			[
+				"git mer",
+				"Git: Merge Branch"
+			],
+			[
+				"git comm",
+				"Git: Commit"
+			],
+			[
+				"git reb",
+				"Git: Merge Branch"
+			],
+			[
+				"git bran",
+				"Git: Pull Current Branch"
+			],
+			[
+				"git push",
+				"Git: Push"
+			],
+			[
+				"git pu",
+				"Git: Pull"
+			],
+			[
+				"git p",
+				"Git: Pull Current Branch"
+			],
+			[
+				"git res",
+				"Git: Reset (unstage) All"
+			],
+			[
+				"git commi",
+				"Git: Commit"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"install pac",
+				"Package Control: Install Package"
+			],
+			[
+				"anaconda",
+				"Anaconda: Disable linting on this file"
+			],
+			[
+				"prv",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"install pa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/jason.wang/Documents/Python Projects/Presidential Primary Debates"
+	],
+	"file_history":
+	[
+		"/Users/jason.wang/Documents/Python Projects/Presidential Primary Debates/negative-words.txt",
+		"/Users/jason.wang/Documents/Python Projects/Presidential Primary Debates/primary_debates_cleaned.csv",
+		"/Users/jason.wang/Desktop/Crime Analysis/crime.py",
+		"/Users/jason.wang/Desktop/Python Practice/quandlData.py",
+		"/Users/jason.wang/Desktop/Python Practice/practice.py",
+		"/Users/jason.wang/Desktop/Python Practice/fifty_states.pickle",
+		"/Users/jason.wang/Desktop/throwaway",
+		"/Users/jason.wang/Library/Application Support/Sublime Text 3/Packages/Python/Python.sublime-build",
+		"/Users/jason.wang/Desktop/test.py",
+		"/Users/jason.wang/Library/Application Support/Sublime Text 3/Packages/User/testPython",
+		"/Users/jason.wang/Desktop/quandlProject",
+		"/Users/jason.wang/Library/Application Support/Sublime Text 3/Packages/Python/Python.sublime-syntax",
+		"/Users/jason.wang/Downloads/medium_quality.rss"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"clinton_dict",
+			"temp_df",
+			"suffix",
+			"master_df",
+			"ad hoc eng"
+		],
+		"highlight": true,
+		"in_selection": true,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"counter"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "debate.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2288,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2283,
+								2283
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 482.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1043,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"git_root_dir": "/Users/jason.wang/Documents/Python Projects/Presidential Primary Debates",
+							"syntax": "Packages/Diff/Diff.tmLanguage",
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 141.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 100.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "primary_debate.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "crim",
+		"selected_items":
+		[
+			[
+				"crim",
+				"~/Desktop/Crime Analysis/crime_analysis.sublime-project"
+			],
+			[
+				"",
+				"~/Desktop/Python Practice/FMAC_Analysis.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 257.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
