@@ -2,7 +2,7 @@ import pandas as pd
 import pickle
 import matplotlib.pyplot as plt
 import string
-import numpy as np
+import codecs
 
 
 def read_and_clean():
@@ -19,6 +19,7 @@ def read_and_clean():
 	return clinton_df, trump_df
 
 def word_counter(dataFrame):
+	#return dictionaries of the candidates words and their respective counts
 	word_list = list(dataFrame['Text'])
 
 	counter = {}
@@ -33,17 +34,37 @@ def word_counter(dataFrame):
 				counter[word] = 1
 	return counter
 
+def sentiment_analysis(word_dict, total_words):
+	positive_counter = 0
+	negative_counter = 0
+	# with open('positive-words.txt') as f:
+	# 	for line in f:
+	# 		word = str(line).rstrip()
+	# 		if word in word_dict.keys():
+	# 			print('hi')
+	# 			positive_counter += word_dict[word]
+	# with codecs.open('negative-words.txt', encoding='utf-8') as f:
+	# 	for line in f:
+	# 		print(line)
+	# 		if line in word_dict.keys():
+	# 			print('ho')
+	# 			negative_counter += word_dict[line]
+	return positive_counter / total_words
+
+
 
 clinton_df = pickle.load(open('clinton.pickle', 'rb'))
 trump_df = pickle.load(open('trump.pickle', 'rb'))
 
-#return dictionaries of the candidates words and their respective counts
-#calling len(dict) shows us the size of one candidate's vocabulary to another's
+'''get dictionaries of the candidate's words and their counts'''
 clinton_words = word_counter(clinton_df)
 trump_words = word_counter(trump_df)
 
 clinton_total_words = sum(clinton_words.values())
 trump_total_words = sum(trump_words.values())
+hillary_positive_rate = sentiment_analysis(clinton_words, clinton_total_words)
+trump_positive_rate = sentiment_analysis(trump_words, trump_total_words)
+print(hillary_positive_rate, trump_positive_rate)
 print(clinton_total_words, trump_total_words)
 
 clinton_tuples = sorted(clinton_words.items(), key = lambda x: x[1], reverse = True)
