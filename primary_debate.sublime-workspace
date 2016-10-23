@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"tneg",
+				"t_neg_words"
+			],
+			[
+				"hpo",
+				"h_pos_words"
+			],
+			[
+				"pword",
+				"p_word_list"
+			],
+			[
+				"tpos",
+				"t_pos"
+			],
+			[
 				"word",
 				"word_dict"
 			],
@@ -131,20 +147,9 @@
 			"file": "debate.py",
 			"settings":
 			{
-				"buffer_size": 2288,
+				"buffer_size": 3645,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "diff --git a/debate.py b/debate.py\nindex 29dfd2f..5b7e0a4 100644\n--- a/debate.py\n+++ b/debate.py\n@@ -2,7 +2,6 @@ import pandas as pd\n import pickle\n import matplotlib.pyplot as plt\n import string\n-import numpy as np\n \n \n def read_and_clean():\n@@ -19,6 +18,7 @@ def read_and_clean():\n \treturn clinton_df, trump_df\n \n def word_counter(dataFrame):\n+\t#return dictionaries of the candidates words and their respective counts\n \tword_list = list(dataFrame['Text'])\n \n \tcounter = {}\n@@ -33,11 +33,16 @@ def word_counter(dataFrame):\n \t\t\t\tcounter[word] = 1\n \treturn counter\n \n+def sentiment_analysis(df):\n+\twith open('positive-words.txt') as f:\n+\t\tfor line in f:\n+\t\t\tpass\n \n clinton_df = pickle.load(open('clinton.pickle', 'rb'))\n trump_df = pickle.load(open('trump.pickle', 'rb'))\n \n-#return dictionaries of the candidates words and their respective counts\n+sentiment_analysis(clinton_df)\n+\n #calling len(dict) shows us the size of one candidate's vocabulary to another's\n clinton_words = word_counter(clinton_df)\n trump_words = word_counter(trump_df)\n",
-			"settings":
-			{
-				"buffer_size": 1043,
-				"line_ending": "Unix",
-				"name": "Git Diff",
-				"read_only": true,
-				"scratch": true
 			}
 		}
 	],
@@ -171,21 +176,109 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
-		"last_filter": "git ",
+		"height": 187.0,
+		"last_filter": "instl",
 		"selected_items":
 		[
 			[
-				"git ",
-				"Git: Diff Current File"
+				"instl",
+				"Package Control: Install Package"
+			],
+			[
+				"custom",
+				"Git: Custom Command"
+			],
+			[
+				"git",
+				"Git: Push"
+			],
+			[
+				"git commi",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add All"
+			],
+			[
+				"git reb",
+				"Git: Pull Using Rebase"
+			],
+			[
+				"git pull",
+				"Git: Pull"
+			],
+			[
+				"cust",
+				"Git: Custom Command"
+			],
+			[
+				"cu",
+				"Git: Custom Command"
+			],
+			[
+				"c",
+				"Git: Change Branch"
+			],
+			[
+				"git custom",
+				"Git: Custom Command"
+			],
+			[
+				"git cust",
+				"Git: Custom Command"
+			],
+			[
+				"git fet",
+				"Git: Fetch"
+			],
+			[
+				"git cus",
+				"Git: Custom Command"
+			],
+			[
+				"delete",
+				"Git: Delete Branch"
+			],
+			[
+				"ch",
+				"Git: Change Branch"
 			],
 			[
 				"change",
 				"Git: Change Branch"
 			],
 			[
-				"git",
-				"Git: Commit history"
+				"merge",
+				"Git: Merge Branch"
+			],
+			[
+				"commi",
+				"Git: Commit"
+			],
+			[
+				"add",
+				"Git: Add Current File"
+			],
+			[
+				"git ",
+				"Git: Push"
+			],
+			[
+				"git commit",
+				"Git: Commit"
+			],
+			[
+				"git change",
+				"Git: Change Branch"
+			],
+			[
+				"git chan",
+				"Git: Change Branch"
+			],
+			[
+				"git res",
+				"Git: Reset (unstage) All"
 			],
 			[
 				"new",
@@ -194,18 +287,6 @@
 			[
 				"commit",
 				"Git: Commit"
-			],
-			[
-				"add",
-				"Git: Add Current File"
-			],
-			[
-				"delete",
-				"Git: Delete Branch"
-			],
-			[
-				"merge",
-				"Git: Merge Branch"
 			],
 			[
 				"pull",
@@ -230,10 +311,6 @@
 			[
 				"gs",
 				"Git: Status"
-			],
-			[
-				"git add",
-				"Git: Add Current File"
 			],
 			[
 				"linting",
@@ -264,10 +341,6 @@
 				"Git: Diff Current File"
 			],
 			[
-				"git change",
-				"Git: Change Branch"
-			],
-			[
 				"git dle",
 				"Git: Delete Branch"
 			],
@@ -280,20 +353,12 @@
 				"Git: Delete Branch"
 			],
 			[
-				"git chan",
-				"Git: Change Branch"
-			],
-			[
 				"git mer",
 				"Git: Merge Branch"
 			],
 			[
 				"git comm",
 				"Git: Commit"
-			],
-			[
-				"git reb",
-				"Git: Merge Branch"
 			],
 			[
 				"git bran",
@@ -310,14 +375,6 @@
 			[
 				"git p",
 				"Git: Pull Current Branch"
-			],
-			[
-				"git res",
-				"Git: Reset (unstage) All"
-			],
-			[
-				"git commi",
-				"Git: Commit"
 			],
 			[
 				"install",
@@ -368,6 +425,8 @@
 	],
 	"file_history":
 	[
+		"/Users/jason.wang/Documents/Python Projects/Presidential Primary Debates/test.txt",
+		"/Users/jason.wang/Documents/Python Projects/Presidential Primary Debates/2-faced",
 		"/Users/jason.wang/Documents/Python Projects/Presidential Primary Debates/negative-words.txt",
 		"/Users/jason.wang/Documents/Python Projects/Presidential Primary Debates/primary_debates_cleaned.csv",
 		"/Users/jason.wang/Desktop/Crime Analysis/crime.py",
@@ -384,7 +443,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -398,6 +457,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"open",
 			"clinton_dict",
 			"temp_df",
 			"suffix",
@@ -405,7 +465,7 @@
 			"ad hoc eng"
 		],
 		"highlight": true,
-		"in_selection": true,
+		"in_selection": false,
 		"preserve_case": false,
 		"regex": false,
 		"replace_history":
@@ -430,55 +490,27 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2288,
+						"buffer_size": 3645,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2283,
-								2283
+								2044,
+								2044
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 482.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1043,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"git_root_dir": "/Users/jason.wang/Documents/Python Projects/Presidential Primary Debates",
-							"syntax": "Packages/Diff/Diff.tmLanguage",
-							"word_wrap": false
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -517,7 +549,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 141.0
+		"height": 217.0
 	},
 	"output.find_results":
 	{
@@ -525,7 +557,7 @@
 	},
 	"output.git":
 	{
-		"height": 100.0
+		"height": 164.0
 	},
 	"pinned_build_system": "Packages/Python/Python.sublime-build",
 	"project": "primary_debate.sublime-project",
