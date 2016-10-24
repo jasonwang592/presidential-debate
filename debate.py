@@ -9,15 +9,15 @@ from nltk.corpus import stopwords
 
 def read_and_clean():
 	'''reads the debate csv and removes all Audience and non-candidate related text'''
-	df = pd.read_csv('primary_debates_cleaned.csv')
+	df = pd.read_csv('files/primary_debates_cleaned.csv')
 	df.drop(['Line','URL'], axis = 1, inplace = True)
-	print(df.columns)
 
 	clinton_df = df[df['Speaker'] == 'Clinton']
 	trump_df = df[df['Speaker'] == 'Trump']
 
-	pickle.dump(clinton_df, open('clinton.pickle', 'wb'))
-	pickle.dump(trump_df, open('trump.pickle', 'wb'))
+	pickle.dump(clinton_df, open('files/clinton.pickle', 'wb'))
+	pickle.dump(trump_df, open('files/trump.pickle', 'wb'))
+
 	return clinton_df, trump_df
 
 def word_counter(dataFrame):
@@ -25,7 +25,6 @@ def word_counter(dataFrame):
 	and their respective counts'''
 	word_list = list(dataFrame['Text'])
 	cachedStopWords = stopwords.words("english")
-
 
 	counter = {}
 	translator = str.maketrans({key: None for key in string.punctuation})
@@ -49,21 +48,21 @@ def sentiment_analysis(word_dict, total_words):
 	negative_counter = 0
 	p_word_list = {}
 	n_word_list = {}
-	with open('positive-words.txt') as f:
+	with open('files/positive-words.txt') as f:
 		for line in f:
 			word = str(line).rstrip()
 			if word in word_dict.keys():
 				positive_counter += word_dict[word]
 				p_word_list[word] = word_dict[word]
-	with codecs.open('negative-words.txt','r',encoding='utf8') as g:
+	f.close()
+	with codecs.open('files/negative-words.txt','r',encoding='utf8') as g:
 		for line in g:
 			word = str(line).rstrip()
 			if word in word_dict.keys():
 				negative_counter += word_dict[word]
 				n_word_list[word] = word_dict[word]
-
-	f.close()
 	g.close()
+
 	positive_rate = (positive_counter / total_words) * 100
 	negative_rate = (negative_counter / total_words) * 100
 
@@ -88,8 +87,8 @@ def sentiment_chart(p_corpus, n_corpus, candidate, l_threshold = 0, h_threshold 
 	word_index = range(0, len(corpus))
 	df = pd.DataFrame()
 	df['value'] = freq
-
 	df['pos'] = [True if i > 0 else False for i in df['value']]
+
 	plt.figure(figsize=(15,10))
 	plt.barh(word_index, freq, color = df.pos.map({True: 'g', False:'r'}))
 	plt.ylim([0,len(corpus)])
@@ -99,7 +98,7 @@ def sentiment_chart(p_corpus, n_corpus, candidate, l_threshold = 0, h_threshold 
 	plt.title('Most frequent words with at least %s and at most %s occurrences spoken by %s' %(l_threshold, h_threshold,
 		candidate))
 	plt.tight_layout()
-	plt.savefig('%s,min%s,max%s.png' % (candidate, l_threshold, h_threshold))
+	plt.savefig('output/%s,min%s,max%s.png' % (candidate, l_threshold, h_threshold))
 	plt.show()
 
 def sentiment_split(df):
@@ -108,7 +107,7 @@ def sentiment_split(df):
 	pos = []
 	neg = []
 
-	f = open('positive-words.txt')
+	f = open('files/positive-words.txt')
 	keywords = [line.rstrip() for line in f.readlines()]
 	translator = str.maketrans({key: None for key in string.punctuation})
 
@@ -118,7 +117,7 @@ def sentiment_split(df):
 		pos.append(matched_words)
 	f.close()
 
-	f = codecs.open('negative-words.txt','r',encoding='utf8')
+	f = codecs.open('files/negative-words.txt','r',encoding='utf8')
 	keywords = [line.rstrip() for line in f.readlines()]
 	for line in df['Text']:
 		word_list = [word.lower() for word in line.translate(translator).split()]
@@ -143,8 +142,9 @@ def tfidf_analysis(corpus):
 
 
 if __name__ == '__main__':
-	clinton_df = pickle.load(open('clinton.pickle', 'rb'))
-	trump_df = pickle.load(open('trump.pickle', 'rb'))
+	read_and_clean()
+	clinton_df = pickle.load(open('files/clinton.pickle', 'rb'))
+	trump_df = pickle.load(open('files/trump.pickle', 'rb'))
 
 	'''get dictionaries of the candidate's words and their counts'''
 	clinton_words = word_counter(clinton_df)
@@ -155,9 +155,10 @@ if __name__ == '__main__':
 	h_pos, h_neg, h_pos_words, h_neg_words = sentiment_analysis(clinton_words, sum(clinton_words.values()))
 	t_pos, t_neg, t_pos_words, t_neg_words = sentiment_analysis(trump_words, sum(trump_words.values()))
 
+	sentiment_chart(h_pos_words, h_neg_words, 'Trump', 10, 500)
 	clinton_p_corpus, clinton_n_corpus = sentiment_split(clinton_df)
 	trump_p_corpus, trump_n_corpus = sentiment_split(trump_df)
-	tfidf_analysis(clinton_p_corpus)
+
 	print("Out of %s non-stopwords and %s Hillary and Trump spoke, respectively:" % (clinton_total_words, trump_total_words))
 	print("Hillary's positive word rate: %0.2f" % h_pos + "%")
 	print("Hillary's negative word rate: %0.2f" % h_neg + "%")
