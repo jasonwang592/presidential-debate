@@ -69,7 +69,7 @@ def sentiment_analysis(word_dict, total_words):
 
 	return positive_rate, negative_rate, p_word_list, n_word_list
 
-def sentiment_chart(p_corpus, n_corpus, l_threshold = 0, h_threshold = 100):
+def sentiment_chart(p_corpus, n_corpus, candidate, l_threshold = 0, h_threshold = 100):
 	'''Produces a horizontal bar chart displaying word and frequency data for a candidate
 		p_corpus: dictionary of positive words
 		n_corpus: dictionary of negative words
@@ -96,7 +96,10 @@ def sentiment_chart(p_corpus, n_corpus, l_threshold = 0, h_threshold = 100):
 	plt.xlabel('Frequency')
 	plt.ylabel('Word')
 	plt.yticks(word_index, corpus)
+	plt.title('Most frequent words with at least %s and at most %s occurrences spoken by %s' %(l_threshold, h_threshold,
+		candidate))
 	plt.tight_layout()
+	plt.savefig('%s,min%s,max%s.png' % (candidate, l_threshold, h_threshold))
 	plt.show()
 
 def sentiment_split(df):
@@ -133,7 +136,6 @@ def tfidf_analysis(corpus):
 
 	for i, blob in enumerate(corpus):
 		for word in blob:
-			print(blob)
 			tf_idf_scores[word] = tfidf_helper.tf_idf(word, blob, corpus)
 			print('processing line %s of %s' %(i, len(clean_word_list)))
 	print(sorted(tf_idf_scores.items(), key = lambda x: x[1], reverse = True))
@@ -154,7 +156,7 @@ if __name__ == '__main__':
 	t_pos, t_neg, t_pos_words, t_neg_words = sentiment_analysis(trump_words, sum(trump_words.values()))
 
 	clinton_p_corpus, clinton_n_corpus = sentiment_split(clinton_df)
-	# trump_p_corpus, trump_n_corpus = sentiment_split(trump_df)
+	trump_p_corpus, trump_n_corpus = sentiment_split(trump_df)
 	tfidf_analysis(clinton_p_corpus)
 	print("Out of %s non-stopwords and %s Hillary and Trump spoke, respectively:" % (clinton_total_words, trump_total_words))
 	print("Hillary's positive word rate: %0.2f" % h_pos + "%")
@@ -162,14 +164,3 @@ if __name__ == '__main__':
 	print("Trump's positive word rate: %0.2f" % t_pos + "%")
 	print("Trump's negative word rate: %0.2f" % t_neg + "%")
 	print("Hillary spoke %s unique words while Trump spoke %s" % (len(clinton_words), len(trump_words)))
-
-	# sentiment_chart(h_pos_words, h_neg_words, 10, 50)
-
-	# print(sorted(t_pos_words.items(), key = lambda x: x[1], reverse = True))
-	# print(sorted(t_neg_words.items(), key = lambda x: x[1], reverse = True))
-	# print(sorted(h_pos_words.items(), key = lambda x: x[1], reverse = True))
-	# print(sorted(h_neg_words.items(), key = lambda x: x[1], reverse = True))
-
-
-
-
